@@ -1,0 +1,36 @@
+{% extends "product/base.html" %}
+{% block content %}
+ <form class="form-inline" method="POST">
+ {% csrf_token %}
+ {{ form }}
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="name" class="sr-only">Product Name</label>
+    <input id="name" value="{{ name }}" type="text" class="form-control" name="name" placeholder="Search">
+  </div>
+  <button name="search" type="submit" class="btn btn-primary mb-2">Search</button>
+</form>
+        {% for post in posts %}
+        <form method="POST" >
+        {% csrf_token %}
+        {{form}} 
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                
+                <a class="mr-2" id="id" value="{{ id }}" name="id" ><label for="id">Product_ID</label> : {{ post.id }}</a>
+                {% comment %} <small class="text-muted">product name {{ post.name }}</small> {% endcomment %}
+                </div>
+                <label for="name">Product Name</label>
+                <h2 id="name" value="{{ name }}" name="name" ><a class="article-title" >{{ post.name }}</a></h2>
+                
+                <p id="price" value="{{ price }}" name="price" class="article-content"><label for="price">Price</label> : {{ post.price }}</p>
+                <label for="id" class="sr-only">Remove Product</label>
+                
+                <input id="id" name="id" class="btn btn-outline-danger" value={{post.id}} type="submit"></input>
+            </div>
+         </article>
+         </form>
+        {% endfor %}
+        
+{% endblock content %}
+
