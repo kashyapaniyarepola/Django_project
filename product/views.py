@@ -48,7 +48,7 @@ def home(request):
             # name = form.cleaned_data['name']
             # price = form.cleaned_data['price']
             deleteProduct(id,post)
-        return HttpResponseRedirect('/')    
+        #return HttpResponseRedirect('/')    
     return render(request, 'product/home.html' , context )
 
 
@@ -64,6 +64,8 @@ def add(request):
             name = form.cleaned_data['name']
             price = form.cleaned_data['price']
             f.write(id +","+name +"," +"$"+price + "\n")
+            post.append({"id":id , "name":name , "price": price})
+            home(request)
             f.close()
             return HttpResponseRedirect('/')
         else:
@@ -90,6 +92,9 @@ def getsearch(name,post):
     return (p)
 
 def deleteProduct(id,post):
+    for i in post:
+        if (i["id"]==id):
+            post.remove(i)
     try:
         f = open(file_path,'r')
     except:
