@@ -46,15 +46,12 @@ def home(request):
         form = ButtonForm(request.POST)
         if form.is_valid():
             id = form.cleaned_data['id']
-            # name = form.cleaned_data['name']
-            # price = form.cleaned_data['price']
             deleteProduct(id,post)
         #return HttpResponseRedirect('/')    
     return render(request, 'product/home.html' , context )
 
 
 def add(request):
-
     if request.method == 'POST':
         form = NameForm(request.POST)
         if form.is_valid():
@@ -62,10 +59,6 @@ def add(request):
             name = form.cleaned_data['name']
             price = form.cleaned_data['price']
             addproduct(request,id,name,price)
-            # f.write(id +","+name +"," +"$"+price + "\n")
-            # post.append({"id":id , "name":name , "price": price})
-            # home(request)
-            # f.close()
             return HttpResponseRedirect('/')
         else:
             form = NameForm()
