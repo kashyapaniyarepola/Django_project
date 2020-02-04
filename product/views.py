@@ -29,6 +29,7 @@ post=post1[-1:0:-1]
 f.close()
  
 def home(request):
+    
     context={
         'posts' : post
     }
@@ -53,34 +54,35 @@ def home(request):
 
 
 def add(request):
-    try:
-        f = open(file_path,'a+')
-    except:
-        print ("error")
+
     if request.method == 'POST':
         form = NameForm(request.POST)
         if form.is_valid():
             id = form.cleaned_data['id']
             name = form.cleaned_data['name']
             price = form.cleaned_data['price']
-            f.write(id +","+name +"," +"$"+price + "\n")
-            post.append({"id":id , "name":name , "price": price})
-            home(request)
-            f.close()
+            addproduct(request,id,name,price)
+            # f.write(id +","+name +"," +"$"+price + "\n")
+            # post.append({"id":id , "name":name , "price": price})
+            # home(request)
+            # f.close()
             return HttpResponseRedirect('/')
         else:
             form = NameForm()
     return render(request, 'product/about.html' , {'title' :'Add Product'})
 
-
-def search(request):
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
-        name = form.cleaned_data['name']
-        context={
-            'posts' : getsearch(name,post)
-        }
-    return render(request, 'product/home.html' ,context,{'title' :name})
+def addproduct(request,id,name,price):
+    try:
+        f = open(file_path,'a+')
+    except:
+        print ("error")
+    f.write(id +","+name +"," +"$"+price + "\n")
+    post.insert(0,{"id":id , "name":name , "price": price})
+    f.close()
+    context={
+        'posts' : post
+    }
+    return render(request, 'product/home.html' , context )
 
 def getsearch(name,post):
     p=[]

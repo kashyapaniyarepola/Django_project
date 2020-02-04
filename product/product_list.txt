@@ -101,3 +101,5 @@ ZD86,Tomatoes - Heirloom,$768.08
 YB46,Flavouring - Rum,$76.16
 EASHW1234,Ajan,$456.09
 QWERT12345,tasty mash,$1234.90
+ASDFG1234,Comrade,$123.45
+UYT8976,KashyapaNi,$1234.90
